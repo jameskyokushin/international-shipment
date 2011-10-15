@@ -1,4 +1,6 @@
 Shipment::Application.routes.draw do
+  resources :shippings
+
   ActiveAdmin.routes(self)
 
   devise_for :admin_users, ActiveAdmin::Devise.config

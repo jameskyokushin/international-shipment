@@ -1,0 +1,23 @@
+<h1>Listing tracking_shipments</h1>
+
+<table>
+  <tr>
+    <th>Supplier</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @tracking_shipments.each do |tracking_shipment| %>
+  <tr>
+    <td><%= tracking_shipment.supplier_id %></td>
+    <td><%= link_to 'Show', tracking_shipment %></td>
+    <td><%= link_to 'Edit', edit_tracking_shipment_path(tracking_shipment) %></td>
+    <td><%= link_to 'Destroy', tracking_shipment, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Tracking shipment', new_tracking_shipment_path %>

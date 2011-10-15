@@ -1,0 +1,10 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Supplier:</b>
+  <%= @tracking_shipment.supplier_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_tracking_shipment_path(@tracking_shipment) %> |
+<%= link_to 'Back', tracking_shipments_path %>
