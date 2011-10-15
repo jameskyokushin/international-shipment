@@ -2,17 +2,18 @@ ActiveAdmin.register Shipping do
 
   form do |f|
     f.inputs "Supplier Info" do
-      f.input :supplier
+      f.input :supplier, :label => "From"
     end
     
-    #f.inputs "Items" do
-    #  f.has_many :items do |i|
-    #    i.input :_destroy, :as => :boolean, :label => "Delete this item" unless i.object.id.nil?
-    #    i.input :quantity
-    #    i.input :description
-    #    i.input :amount
-    #  end
-    #end
+    f.inputs "Items" do
+      f.has_many :items do |i|
+        i.input :model
+        i.input :_destroy, :as => :boolean, :label => "Delete this item" unless i.object.id.nil?
+        i.input :quantity
+        i.input :description
+        i.input :amount
+      end
+    end
     
     #f.inputs "Options" do
     #  f.input :code, :hint => "The Sales Order, should be incremental. Suggested code: ASI-2011-#{Invoice.suggest_code}"

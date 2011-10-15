@@ -1,4 +1,6 @@
 Shipment::Application.routes.draw do
+  resources :items
+
   resources :shippings
 
   ActiveAdmin.routes(self)

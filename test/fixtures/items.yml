@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  quantity: 1
+  model: MyString
+  description: MyString
+  amount: 1.5
+  shipping_id: 1
+
+two:
+  quantity: 1
+  model: MyString
+  description: MyString
+  amount: 1.5
+  shipping_id: 1
