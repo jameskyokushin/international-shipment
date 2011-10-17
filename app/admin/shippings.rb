@@ -16,6 +16,7 @@ ActiveAdmin.register Shipping do
     f.inputs "Shipment Tracking" do
       f.input :date_send 
       f.input :status, :collection => Shipping.status_collection, :as => :radio
+      f.input :forwarder, :collection => [["Choose","Choose"],["JBS","JBS"],["SPEED ACCESS","SPEED ACCESS"],["TONGDA","TONGDA"]], :include_blank => false
     end
 
     f.inputs "Items" do

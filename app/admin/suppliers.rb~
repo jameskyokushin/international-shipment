@@ -2,6 +2,7 @@ ActiveAdmin.register Supplier do
   
   filter :name
   filter :email
+  filter :address
   
   form do |f|
     f.inputs "Supplier Information" do
