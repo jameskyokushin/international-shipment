@@ -1,4 +1,6 @@
 ActiveAdmin.register Shipping do
+filter :supplier
+filter :code
  scope :all, :default => true
   scope :air do |shipping|
     shippings.where(:status => Shipping::STATUS_AIR)
