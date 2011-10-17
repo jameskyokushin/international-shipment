@@ -1,54 +1,23 @@
 ActiveAdmin.register Shipping do
+ scope :all, :default => true
+  scope :air do |shipping|
+    shippings.where(:status => Shipping::STATUS_AIR)
+  end
 
-#show :title => :supplier do
-#    panel "Supplier Details" do
-#      attributes_table_for supplier do
-        #row("Name") { supplier.name }
-        #row("Status") { status_tag invoice.status, invoice.status_tag }
-        #row("Issue Date") { invoice.created_at }
-        #row("Due Date") { invoice.due_date }
-#      end
-#    end
-    
-#    panel "Items" do
-#      table_for supplier.items do |t|
-#        t.column("Qty.") { |item| number_with_delimiter item.quantity }
-#        t.column("Description") { |item| item.description }
-#        t.column("Per Unit") { |item| number_to_currency item.amount }
-#        t.column("Total") { |item| number_to_currency item.total}
-        
-        # Show the tax, discount, subtotal and total
-        #tr do
-        #  2.times { td "" }
-        #  td "Discount:", :style => "text-align:right; font-weight: bold;"
-        #  td "#{number_with_delimiter(invoice.discount)}%"
-        #end
-        
-        #tr do
-        #  2.times { td "" }
-        #  td "Sub-total:", :style => "text-align:right; font-weight: bold;"
-        #  td "#{number_to_currency(invoice.subtotal)}%"
-        #end
-        
-        #tr do
-        #  2.times { td "" }
-        #  td "Taxes:", :style => "text-align:right; font-weight: bold;"
-        #  td "#{number_to_currency(invoice.taxes)} (#{number_with_delimiter(invoice.tax)}%)"
-        #end
-        
-        #tr do
-        #  2.times { td "" }
-        #  td "Total:", :style => "text-align:right; font-weight: bold;"
-        #  td "#{number_to_currency(invoice.total)}%", :style => "font-weight: bold;"
-        #end
-    #  end
-    #end
- # end
+  scope :sea do |shippings|
+    shippings.where(:status => Shipping::STATUS_SEA)
+  end
+  
   form do |f|
     f.inputs "Supplier Info" do
       f.input :supplier, :label => "From"
+      f.input :code, :label => "Code Reference"
     end
-    
+    f.inputs "Shipment Tracking" do
+      f.input :date_send 
+      f.input :status, :collection => Shipping.status_collection, :as => :radio
+    end
+
     f.inputs "Items" do
       f.has_many :items do |i|
         i.input :quantity
