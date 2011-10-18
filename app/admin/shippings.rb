@@ -16,14 +16,6 @@ filter :code
       f.input :supplier, :label => "From"
       f.input :code, :label => "Code Reference"
     end
-    f.inputs "Shipment Tracking" do
-      f.input :date_send 
-      f.input :status, :collection => Shipping.status_collection, :as => :radio
-      f.input :forwarder, :collection => [["Choose","Choose"],["JBS","JBS"],["SPEED ACCESS","SPEED ACCESS"],["TONGDA","TONGDA"]], :include_blank => false
-      f.input :pinadala 
-      f.input :darating 
-      f.input :recieve_by 
-    end
 
     f.inputs "ALL ITEMS" do
       f.has_many :items do |i|
@@ -34,6 +26,18 @@ filter :code
         i.input :amount
       end
     end
+
+    f.inputs "Shipment Tracking" do
+      f.input :date_send 
+      f.input :status, :collection => Shipping.status_collection, :as => :radio
+      f.input :forwarder, :collection => [["Choose","Choose"],["JBS","JBS"],["SPEED ACCESS","SPEED ACCESS"],["TONGDA","TONGDA"]], :include_blank => false
+      f.input :pinadala, :label => "Estimated Date/Time of Departure",:include_blank => false, :start_year => 2011
+      f.input :darating,  :label => "Estimated Date/Time of Arival (Manila)",:include_blank => false, :start_year => 2011 
+      f.input :declared_value
+      f.input :recieve_by 
+    end
+
+   
     
     #f.inputs "Options" do
     #  f.input :code, :hint => "The Sales Order, should be incremental. Suggested code: ASI-2011-#{Invoice.suggest_code}"
