@@ -1,4 +1,5 @@
 ActiveAdmin.register Shipping do
+
 filter :supplier
 filter :code
  scope :all, :default => true
@@ -19,9 +20,12 @@ filter :code
       f.input :date_send 
       f.input :status, :collection => Shipping.status_collection, :as => :radio
       f.input :forwarder, :collection => [["Choose","Choose"],["JBS","JBS"],["SPEED ACCESS","SPEED ACCESS"],["TONGDA","TONGDA"]], :include_blank => false
+      f.input :pinadala 
+      f.input :darating 
+      f.input :recieve_by 
     end
 
-    f.inputs "Items" do
+    f.inputs "ALL ITEMS" do
       f.has_many :items do |i|
         i.input :quantity
         i.input :_destroy, :as => :boolean, :label => "Delete this item" unless i.object.id.nil?

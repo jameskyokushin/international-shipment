@@ -1,4 +1,7 @@
 ActiveAdmin.register Shipping do
+
+filter :supplier
+filter :code
  scope :all, :default => true
   scope :air do |shipping|
     shippings.where(:status => Shipping::STATUS_AIR)
@@ -17,6 +20,9 @@ ActiveAdmin.register Shipping do
       f.input :date_send 
       f.input :status, :collection => Shipping.status_collection, :as => :radio
       f.input :forwarder, :collection => [["Choose","Choose"],["JBS","JBS"],["SPEED ACCESS","SPEED ACCESS"],["TONGDA","TONGDA"]], :include_blank => false
+      f.input :pinadala 
+      f.input :darating 
+      f.input :recieve_by 
     end
 
     f.inputs "Items" do
