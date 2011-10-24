@@ -1,16 +1,76 @@
 ActiveAdmin.register Shipping do
 
+#=================================================================================
+# SHow View
+  show :title => :code do
+    panel "Suppliers" do
+      attributes_table_for shipping.supplier do
+        row("Supplier Name") { shipping.supplier }
+        
+      end
+    end
+    panel "Items" do
+      table_for shipping.items do |t|
+       t.column("Qty.") { |item| number_with_delimiter item.quantity }
+       t.column("Model.") { |item| item.model  }
+       t.column("Description.") { |item| item.description  }
+       #t.column("Unit Price.") { |item| number_to_currency item.amount }
+      end
+    end
+    panel "Shipment Tracking" do
+      attributes_table_for shipping do
+        row("Date Send") { shipping.date_send }
+        row("Recieved By") { shipping.recieve_by }
+        row("By") { shipping.status }
+        row("Forwarder") { shipping.forwarder }
+        row("Estimated Time/Date Departure") {  shipping.pinadala }
+        row("Estimated Time/Date Arrival") {  shipping.darating }
+      end
+    end
+  end
+
 filter :supplier
 filter :code
- scope :all, :default => true
-  scope :air do |shipping|
+  scope :all, :default => true
+  scope :air do |shippings|
     shippings.where(:status => Shipping::STATUS_AIR)
   end
 
   scope :sea do |shippings|
     shippings.where(:status => Shipping::STATUS_SEA)
   end
-  
+#=================================================================================================
+# Index View
+  index do
+    column :code
+    column :supplier
+    column :forwarder
+    column "Expected Time of Departure" do |shipping|
+      etd = if shipping.pinadala
+        " (#{distance_of_time_in_words Time.now, shipping.pinadala})"
+      else
+        ""
+      end
+      
+      #"#{l shipping.created_at, :format => :short}" + eta
+    end
+    column "Estimated Time Of Arrival" do |shipping|
+      eta = if shipping.darating
+        " (ETA in #{distance_of_time_in_words Time.now, shipping.darating})"
+      else
+        ""
+      end
+      
+      "#{l shipping.created_at, :format => :short}" + eta
+    end
+    column do |shipping|
+      link_to("Details", admin_shipping_path(shipping)) + " | " + \
+      link_to("Edit", edit_admin_shipping_path(shipping)) + " | " + \
+      link_to("Delete", admin_shipping_path(shipping), :method => :delete, :confirm => "Are you sure?")
+    end
+  end
+#=================================================================================================
+# Form View
   form do |f|
     f.inputs "Supplier Info" do
       f.input :supplier, :label => "From"
@@ -23,35 +83,19 @@ filter :code
         i.input :_destroy, :as => :boolean, :label => "Delete this item" unless i.object.id.nil?
         i.input :model
         i.input :description
-        i.input :amount
+        #i.input :amount
       end
     end
 
     f.inputs "Shipment Tracking" do
       f.input :date_send 
-      f.input :status, :collection => Shipping.status_collection, :as => :radio
+      f.input :status, :collection => Shipping.status_collection, :as => :radio, :label => "BY:"
       f.input :forwarder, :collection => [["Choose","Choose"],["JBS","JBS"],["SPEED ACCESS","SPEED ACCESS"],["TONGDA","TONGDA"]], :include_blank => false
       f.input :pinadala, :label => "Estimated Date/Time of Departure"
-      f.input :darating,  :label => "Estimated Date/Time of Arival (Manila)",:include_blank => false, :start_year => 2011 
+      f.input :darating,  :label => "Estimated Date/Time of Arival (Manila)"
       f.input :declared_value
       f.input :recieve_by 
     end
-
-   
-    
-    #f.inputs "Options" do
-    #  f.input :code, :hint => "The Sales Order, should be incremental. Suggested code: ASI-2011-#{Invoice.suggest_code}"
-    #  f.input :status, :collection => Invoice.status_collection, :as => :radio
-    #  f.input :due_date
-    #  f.input :tax, :input_html => { :style => "width: 30px"}, :hint => "This should be a percentage, from 0 to 100 (without the % sign)"
-    #  f.input :discount, :input_html => { :style => "width: 30px"}, :hint => "This should be a percentage, from 0 to 100 (without the % sign)"
-    #end
-    
-    #f.inputs "Other Fields" do
-    #  f.input :terms, :input_html => { :rows => 4 }, :label => "Terms & Conditions"
-    #  f.input :notes, :input_html => { :rows => 4 }
-    #end
-    
     f.buttons
   end
 end
