@@ -34,7 +34,7 @@ ActiveAdmin.register Supplier do
   end
   
   show :title => :name do
-    panel "Client Details" do
+    panel "SUPPLIER DETAILS" do
       attributes_table_for supplier do
         row("Name") { supplier.name }
         row("Email") { mail_to supplier.email }
@@ -43,6 +43,7 @@ ActiveAdmin.register Supplier do
       end
     end
   end
-
-  
+  sidebar "Over All Shipment Pending", :only => :edit do
+    #h1 (Shipping.where(:supplier_id => supplier_id).all), :style => "text-align: center; margin-top: 20px;"
+  end 
 end
