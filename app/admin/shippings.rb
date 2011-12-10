@@ -75,7 +75,6 @@ filter :code
         i.input :_destroy, :as => :boolean, :label => "Delete this item" unless i.object.id.nil?
         i.input :model
         i.input :description
-        #i.input :amount
       end
     end
 

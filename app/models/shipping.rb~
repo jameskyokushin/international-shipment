@@ -22,19 +22,4 @@ class Shipping < ActiveRecord::Base
         end
       end
    end
-   def items_total
-     items_total = 0
-     self.items.each do |i|
-        items_total += i.total
-     end
-     items_total
-   end
-  
-   def total
-     items_total * (1 - self.discount / 100) * (1 + self.tax / 100)
-   end
-  
-   def subtotal
-     items_total * (1 - self.discount / 100)
-   end  
 end

@@ -45,15 +45,7 @@ filter :code
     column :code
     column :supplier
     column :forwarder
-    column "Expected Time of Departure" do |shipping|
-      etd = if shipping.pinadala
-        " (#{distance_of_time_in_words Time.now, shipping.pinadala})"
-      else
-        ""
-      end
-      
-      #"#{l shipping.created_at, :format => :short}" + eta
-    end
+    column :date_send
     column "Estimated Time Of Arrival" do |shipping|
       eta = if shipping.darating
         " (ETA in #{distance_of_time_in_words Time.now, shipping.darating})"

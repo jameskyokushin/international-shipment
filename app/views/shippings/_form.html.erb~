@@ -1,21 +1,25 @@
-<%= semantic_form_for(@shipping) do |f| %>
-  <% if @shipping.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@shipping.errors.count, "error") %> prohibited this shipping from being saved:</h2>
-
-      <ul>
-      <% @shipping.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
+<%= semantic_form_for(@shipping, @items) do |f| %>
+  <%= f.inputs "Supplier Info" do %>
+    <%= f.input :supplier, :label => "From" %>
+    <%= f.input :code, :label => "PI #" %>
   <% end %>
-
-  <div class="field">
-    <%= f.label :supplier_id %><br />
-    <%= f.text_field :supplier_id %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= f.inputs "All Items" do %>
+    <%= f. :items do |i| %>
+    <%= i.input :quantity %>
+    <%= i.input :model %>
+    <%= i.input :description %>
+    <% end %>
+  <% end %>
+  <%= f.inputs "Shipment Tracking" do %>
+    <%= f.input :date_send %>
+    <%= f.input :status, :collection => Shipping.status_collection, :as => :radio, :label => "BY:" %>
+    <%= f.input :forwarder, :collection => [["Choose","Choose"],["JBS","JBS"],["SPEED ACCESS","SPEED ACCESS"],["TONGDA","TONGDA"]], :include_blank => false %>
+    <%= f.input :pinadala, :label => "Estimated Date/Time of Department" %>
+    <%= f.input :darating, :label => "Estimated Date/Time of Arrival (Manila)" %>
+    <%= f.input :declared_value %>
+    <%= f.input :recieve_by %>
+  <% end %>
+  <%= f.buttons %>
 <% end %>
+
+   
