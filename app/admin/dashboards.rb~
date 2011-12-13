@@ -23,10 +23,9 @@ ActiveAdmin::Dashboards.build do
 
    section "Latest Shipment" do
     table_for Shipping.order('created_at desc').limit(5).all do |t|
-      t.column("Code Reference") { |shipping| link_to "##{shipping.code}", admin_shipping_path(shipping) }
+      t.column("PI NUMBER") { |shipping| link_to "##{shipping.code}", admin_shipping_path(shipping) }
       t.column("Supplier") {  |shipping| link_to shipping.supplier.name, admin_supplier_path(shipping.supplier) }
       t.column("Forwarder") { |shipping| shipping.forwarder }
-      t.column("Date Arrival") { |shipping| shipping.forwarder }
     end
   end
   # Define your dashboard sections here. Each block will be

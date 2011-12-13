@@ -66,14 +66,14 @@ filter :code
   form do |f|
     f.inputs "Supplier Info" do
       f.input :supplier, :label => "From"
-      f.input :code, :label => "Code Reference"
+      f.input :code, :input_html => { :style => "width: 150px"}, :label => "PI #"
     end
 
     f.inputs "ALL ITEMS" do
       f.has_many :items do |i|
-        i.input :quantity
-        #i.input :_destroy, :as => :boolean, :label => "Delete this item" unless i.object.id.nil?
-        i.input :model
+        i.input :quantity, :input_html => { :style => "width: 20px"}
+        i.input :_destroy, :as => :boolean, :label => "Delete this item" unless i.object.id.nil?
+        i.input :model, :input_html => { :style => "width: 200px"}
         i.input :description
       end
     end
