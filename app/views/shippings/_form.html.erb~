@@ -4,11 +4,7 @@
     <%= f.input :code, :label => "PI #" %>
   <% end %>
   <%= f.inputs "All Items" do %>
-    <%= f. :items do |i| %>
-    <%= i.input :quantity %>
-    <%= i.input :model %>
-    <%= i.input :description %>
-    <% end %>
+ 
   <% end %>
   <%= f.inputs "Shipment Tracking" do %>
     <%= f.input :date_send %>
@@ -22,4 +18,11 @@
   <%= f.buttons %>
 <% end %>
 
-   
+   f.inputs "ALL ITEMS" do
+      f.has_many :items do |i|
+        i.input :quantity
+        i.input :_destroy, :as => :boolean, :label => "Delete this item" unless i.object.id.nil?
+        i.input :model
+        i.input :description
+      end
+    end

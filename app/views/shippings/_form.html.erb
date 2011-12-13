@@ -17,5 +17,13 @@
   <% end %>
   <%= f.buttons %>
 <% end %>
-
-   
+??
+   f.inputs "ALL ITEMS" do
+      f.has_many :items do |i|
+        i.input :quantity
+        i.input :_destroy, :as => :boolean, :label => "Delete this item" unless i.object.id.nil?
+        i.input :model
+        i.input :description
+      end
+    end
+??

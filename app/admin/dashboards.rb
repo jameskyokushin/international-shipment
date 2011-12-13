@@ -25,7 +25,8 @@ ActiveAdmin::Dashboards.build do
     table_for Shipping.order('created_at desc').limit(5).all do |t|
       t.column("Code Reference") { |shipping| link_to "##{shipping.code}", admin_shipping_path(shipping) }
       t.column("Supplier") {  |shipping| link_to shipping.supplier.name, admin_supplier_path(shipping.supplier) }
-      t.column("Forwarder") { |shipping| shipping.darating }
+      t.column("Forwarder") { |shipping| shipping.forwarder }
+      t.column("Date Arrival") { |shipping| shipping.darating }
     end
   end
   # Define your dashboard sections here. Each block will be
@@ -58,7 +59,7 @@ ActiveAdmin::Dashboards.build do
   # bottom right. The default priority is 10. By giving a section numerically lower
   # priority it will be sorted higher. For example:
   #
-  #   section "Recent Posts", :priority => 10
+  #   section "Recent Posts", :priori ramble na skype q..ty => 10
   #   section "Recent User", :priority => 1
   #
   # Will render the "Recent Users" then the "Recent Posts" sections on the dashboard.
